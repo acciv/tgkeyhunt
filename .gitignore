@@ -3,4 +3,3 @@ __pycache__/
 *.pyc
 /examples/findings.json
 /examples/report.md
-*.log
