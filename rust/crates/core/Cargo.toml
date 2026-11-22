@@ -1,0 +1,16 @@
+[package]
+name = "tgkeyhunt-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["acciv <shutzombie@gmail.com>"]
+description = "Локальный аудит утечек токенов Telegram Bot API"
+
+[lib]
+name = "tgkeyhunt_core"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "tgkeyhunt"
+path = "src/main.rs"

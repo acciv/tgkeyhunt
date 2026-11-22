@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests
+        run: make test
+      - name: C ABI
+        run: |
+          cargo build --manifest-path Cargo.toml
+          cc tests/c_abi_test.c -Iinclude -Ltarget/debug -ltgkeyhunt_core -o /tmp/tgkeyhunt-c-test
+          LD_LIBRARY_PATH=target/debug /tmp/tgkeyhunt-c-test
+      - name: Demo
+        run: make demo
